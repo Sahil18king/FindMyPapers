@@ -1,142 +1,183 @@
-/* style.css */
-
-/* General Styles */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f5f6fa; /* Soft background for a professional look */
-  color: #333; /* Darker text for contrast */
+/* General Reset */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
+/* Body Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #ffffff; /* White background */
+  color: #333; /* Dark text color for better readability */
+  line-height: 1.6;
+}
+
+/* Navbar Styling */
 nav {
-  background-color: #0056b3; /* Primary color for the navbar */
-  padding: 15px 20px; /* Padding for the navbar */
-  display: flex; /* Flexbox for alignment */
-  justify-content: space-between; /* Space between logo and login */
-  align-items: center; /* Center items vertically */
+  background-color: #00677b; /* Blue background for navbar */
+  padding: 10px 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .nav-container {
   display: flex;
-  align-items: center; /* Center align items */
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
-  color: white; /* White text for the logo */
-  margin: 0;
-  font-size: 1.8em; /* Larger font size for logo */
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff; /* White text */
 }
 
 .admin-login {
-  color: white; /* White text for admin login */
-  text-decoration: none; /* Remove underline */
-  padding: 10px 15px; /* Padding for the link */
-  border-radius: 5px; /* Rounded corners */
-  transition: background-color 0.3s; /* Smooth background color transition */
+  background-color: #00677b;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 16px;
 }
 
 .admin-login:hover {
-  background-color: #004494; /* Darker shade on hover */
+  background-color: #00677b;
 }
 
+/* Main Content */
 main {
-  max-width: 800px; /* Max width for the main content */
-  margin: 50px auto; /* Center content with top margin */
-  padding: 20px; /* Padding around the main content */
-  background: #ffffff; /* White background for the form section */
-  border-radius: 10px; /* Rounded corners for the form */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  padding: 40px;
+  text-align: center;
 }
 
 h1 {
-  color: #0056b3; /* Primary color for headings */
-  margin-bottom: 30px; /* Space below heading */
-  text-align: center; /* Center the heading */
-  font-size: 2.5em; /* Larger heading for emphasis */
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #333; /* Dark color for headings */
 }
 
-/* Form Styles */
 form {
-  display: flex;
-  flex-direction: column; /* Stack form elements vertically */
+  background-color: #fafafa; /* Light gray background for forms */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  width: 100%;
+  max-width: 700px;
+  text-align: left;
 }
 
 label {
-  font-weight: bold; /* Bold labels for clarity */
-  margin-bottom: 5px; /* Space below labels */
-  font-size: 1.1em; /* Increased font size for readability */
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #555; /* Softer gray for label text */
 }
 
 select {
-  width: 100%; /* Full width for select elements */
-  padding: 12px; /* Padding for comfort */
-  margin: 10px 0 20px; /* Margin around select elements */
-  border: 1px solid #ccc; /* Light border */
-  border-radius: 5px; /* Rounded corners for inputs */
-  font-size: 1em; /* Consistent font size */
-  transition: border-color 0.3s; /* Transition for focus effect */
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd; /* Lighter border color */
+  border-radius: 4px;
+  background-color: #fff; /* White background for select box */
+  color: #333; /* Dark text */
+  font-size: 14px;
 }
 
 select:focus {
-  border-color: #0056b3; /* Change border color on focus */
-  outline: none; /* Remove default outline */
+  border-color: #00677b;
+  outline: none;
 }
 
-button {
-  background-color: #0056b3; /* Button background color */
-  color: white; /* White text for buttons */
-  padding: 12px; /* Increased padding */
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor for interaction */
-  width: 100%; /* Full width button */
-  font-size: 1.1em; /* Increased font size */
-  transition: background-color 0.3s; /* Transition for hover effect */
+button[type="submit"] {
+  background-color: #00677b; /* Blue button */
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
 }
 
-button:hover {
-  background-color: #004494; /* Darker shade on hover */
+button[type="submit"]:hover {
+  background-color: #015364;
 }
 
-/* Results Section */
 #results {
-  margin-top: 20px; /* Space above results section */
+  margin-top: 30px;
+  color: #333; /* Dark text for results */
 }
 
-#results ul {
-  list-style-type: none; /* Remove default list styling */
-  padding: 0; /* Remove default padding */
+/* Result List Styling */
+.results-container {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-#results li {
-  background: #e9ecef; /* Light grey for result items */
-  margin: 5px 0; /* Space between items */
-  padding: 12px; /* Padding inside result items */
-  border-radius: 5px; /* Rounded corners */
+.result-list {
+  list-style: none;
+  padding: 0;
 }
 
-#results a {
-  color: #0056b3; /* Link color */
-  text-decoration: none; /* No underline */
-  font-weight: bold; /* Bold links */
+.result-item {
+  background-color: #fafafa; /* Light background for each result */
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease;
 }
 
-#results a:hover {
-  text-decoration: underline; /* Underline on hover for links */
+.result-item:hover {
+  background-color: #e9f5ff;
 }
 
-/* Media Queries for Responsiveness */
-@media (max-width: 480px) {
+.result-header {
+  margin-bottom: 10px;
+}
+
+.view-paper {
+  display: inline-block;
+  background-color: #00677b;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.view-paper:hover {
+  background-color: #015364;
+}
+
+/* Footer Styling */
+footer {
+  background-color: #00677b;
+  color: #bbb;
+  padding: 20px 0;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+footer p {
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   main {
-      width: 90%; /* Make main content responsive */
+    padding: 20px;
   }
 
-  .admin-login {
-      padding: 8px 12px; /* Smaller padding for mobile */
-  }
-
-  h1 {
-      font-size: 2em; /* Smaller heading on mobile */
+  form {
+    width: 100%;
   }
 }

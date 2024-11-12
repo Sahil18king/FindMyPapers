@@ -1,11 +1,13 @@
 <?php
 session_start();
 
-// Check if admin is logged in
-if (!isset($_SESSION['admin_logged_in'])) {
-    header("Location: admin_login.php");
-    exit;
-}
+// // Check if admin is logged in
+// if (!isset($_SESSION['admin_logged_in'])) {
+//     header("Location: admin_login.php");
+//     exit;
+// }
+
+include 'auth.php'; 
 
 // Database connection details
 $servername = "localhost";
@@ -21,41 +23,27 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Handle new entry addition
+// Handle new entries
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['edit'])) {
-    $college = $_POST['college'];
-    $branch = $_POST['branch'];
-    $year = $_POST['year'];
-    $present_year = $_POST['present_year'];
-    $subject = $_POST['subject'];
-    $type = $_POST['type'];
-    $link = $_POST['link'];
+    $num_entries = (int)$_POST["num_entries"];
+    $college = $_POST["college"] ?: null;
+    $branch = $_POST["branch"] ?: null;
+    $year = !empty($_POST["year"]) ? (int)$_POST["year"] : null;
+    $present_year = !empty($_POST["present_year"]) ? (int)$_POST["present_year"] : null;
+    $subject = $_POST["subject"] ?: null;
+    $exam_type = $_POST["type"] ?: null;
+    $link = $_POST["link"] ?: null;
 
+    // Prepare and bind the SQL statement
     $stmt = $conn->prepare("INSERT INTO papers (college, branch, year, present_year, subject, type, link) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssissss", $college, $branch, $year, $present_year, $subject, $type, $link);
+    $stmt->bind_param("ssiiiss", $college, $branch, $year, $present_year, $subject, $exam_type, $link);
 
-    if ($stmt->execute()) {
-        echo "<p>New entry added successfully!</p>";
-    } else {
-        echo "<p>Error adding entry: " . $conn->error . "</p>";
+    // Insert the specified number of entries
+    for ($i = 0; $i < $num_entries; $i++) {
+        $stmt->execute();
     }
 
-    $stmt->close();
-}
-
-// Handle deletion
-if (isset($_GET['delete_id'])) {
-    $delete_id = (int)$_GET['delete_id'];
-
-    $stmt = $conn->prepare("DELETE FROM papers WHERE id = ?");
-    $stmt->bind_param("i", $delete_id);
-
-    if ($stmt->execute()) {
-        echo "<p>Record with ID $delete_id deleted successfully.</p>";
-    } else {
-        echo "<p>Error deleting record: " . $conn->error . "</p>";
-    }
-
+    echo "$num_entries entries have been added to the papers table.";
     $stmt->close();
 }
 
@@ -86,39 +74,35 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Papers</title>
     <link rel="stylesheet" href="styles.css">
-    <script>
-        function confirmDelete(id) {
-            if (confirm("Are you sure you want to delete this entry?")) {
-                window.location.href = "add_entries.php?delete_id=" + id;
-            }
-        }
-    </script>
 </head>
 <body>
-    <h2>Add New Entry</h2>
+    <h2>Add Multiple Entries</h2>
     <form method="post" action="">
-        <label for="college">College:</label>
-        <input type="text" id="college" name="college" required><br>
+        <label for="num_entries">Number of Entries:</label>
+        <input type="number" id="num_entries" name="num_entries" min="1" required><br><br>
 
-        <label for="branch">Branch:</label>
-        <input type="text" id="branch" name="branch" required><br>
+        <label>College:</label>
+        <input type="text" name="college"><br><br>
 
-        <label for="year">Year:</label>
-        <input type="number" id="year" name="year" required><br>
+        <label>Branch:</label>
+        <input type="text" name="branch"><br><br>
 
-        <label for="present_year">Present Year:</label>
-        <input type="number" id="present_year" name="present_year" required><br>
+        <label>Year:</label>
+        <input type="number" name="year"><br><br>
 
-        <label for="subject">Subject:</label>
-        <input type="text" id="subject" name="subject" required><br>
+        <label>Present Year:</label>
+        <input type="number" name="present_year"><br><br>
 
-        <label for="type">Type:</label>
-        <input type="text" id="type" name="type" required><br>
+        <label>Subject:</label>
+        <input type="text" name="subject"><br><br>
 
-        <label for="link">Link:</label>
-        <input type="url" id="link" name="link" required><br>
+        <label>Type:</label>
+        <input type="text" name="type"><br><br>
 
-        <button type="submit">Add Entry</button>
+        <label>Link:</label>
+        <input type="text" name="link"><br><br>
+
+        <button type="submit">Submit Entries</button>
     </form>
 
     <h1>Database Entries</h1>
@@ -140,7 +124,7 @@ $conn->close();
             <th>Subject</th>
             <th>Type</th>
             <th>Link</th>
-            <th>Actions</th>
+            <th>Action</th>
         </tr>
 
         <?php
@@ -154,7 +138,7 @@ $conn->close();
                 echo "<td>" . $row['present_year'] . "</td>";
                 echo "<td>" . $row['subject'] . "</td>";
                 echo "<td>" . $row['type'] . "</td>";
-                echo "<td><a href=\"" . $row['link'] . "\">Link</a></td>";
+                echo "<td>" . $row['link'] . "</td>";
                 echo "<td>
                         <a href=\"edit_entry.php?edit_id=" . $row['id'] . "\">Edit</a> | 
                         <a href=\"javascript:void(0);\" onclick=\"confirmDelete(" . $row['id'] . ")\">Delete</a>
@@ -173,5 +157,12 @@ $conn->close();
             <a href="?page=<?php echo $i; ?>&order_by=<?php echo $order_by; ?>"><?php echo $i; ?></a>
         <?php endfor; ?>
     </div>
+    <script>
+        function confirmDelete(id) {
+            if (confirm("Are you sure you want to delete this entry?")) {
+                window.location.href = "add_entries.php?delete_id=" + id;
+            }
+        }
+    </script>
 </body>
 </html>
