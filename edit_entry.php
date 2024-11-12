@@ -1,11 +1,7 @@
 <?php
 session_start();
 
-// Check if admin is logged in
-if (!isset($_SESSION['admin_logged_in'])) {
-    header("Location: admin_login.php");
-    exit;
-}
+include 'auth.php'; 
 
 // Database connection details
 $servername = "localhost";

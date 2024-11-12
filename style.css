@@ -1,0 +1,145 @@
+/* Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f7faff;
+}
+
+.form-container {
+    width: 360px;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.form-container:hover {
+    transform: translateY(-5px);
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e5e5e5;
+    padding-bottom: 10px;
+}
+
+.form-header button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.3s, font-weight 0.3s;
+}
+
+.form-header .active-tab {
+    font-weight: bold;
+    color: #007b8f;
+    border-bottom: 2px solid #007b8f;
+}
+
+.form-header button:hover, .form-header button:focus {
+    color: #007b8f;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+label {
+    font-size: 14px;
+    color: #444;
+    margin-top: 10px;
+    display: block;
+}
+
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 14px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #333;
+    transition: border-color 0.3s;
+}
+
+input[type="email"]:focus, input[type="password"]:focus {
+    border-color: #007b8f;
+    outline: none;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.remember-me input {
+    margin-right: 8px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #007b8f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button[type="submit"]:hover {
+    background-color: #00677b;
+    transform: scale(1.02);
+}
+
+button[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+button:focus {
+    outline: none;
+}
+
+.form-container h2 {
+    color: #444;
+}
+
+@media (max-width: 400px) {
+    .form-container {
+        width: 90%;
+        padding: 25px;
+    }
+
+    .form-header button {
+        font-size: 16px;
+    }
+
+    button[type="submit"] {
+        padding: 12px;
+    }
+}
