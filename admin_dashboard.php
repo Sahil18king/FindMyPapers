@@ -1,9 +1,9 @@
+<?php include 'auth_check.php'; ?>
 <?php
 session_start();
 
-// Check if admin is logged in
-if (!isset($_SESSION['admin_logged_in'])) {
-    header("Location: admin_login.php");
+if (!isset($_SESSION['user_logged_in']) || $_SESSION['Superuser'] !== 'YES') {
+    header("Location: login_signup.php");
     exit;
 }
 ?>
@@ -17,14 +17,12 @@ if (!isset($_SESSION['admin_logged_in'])) {
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
     <nav>
-        <a href="admin_dashboard.php">Dashboard</a>
-        <a href="add_entries.php">Add Entries</a>
-        <a href="admin_logout.php">Logout</a>
+        <button><a href="admin_dashboard.php">Dashboard</a></button>
+        <button><a href="add_entries.php">Add Entries</a></button>
+        <button><a href="logout.php">Logout</a></button>
     </nav>
-
-    <h1>Welcome, <?php echo $_SESSION['admin_email']; ?>!</h1>
+    <h1>Welcome, <?php echo $_SESSION['user_email']; ?>!</h1>
     <p>This is the admin dashboard where you can manage website data.</p>
 </body>
 </html>
